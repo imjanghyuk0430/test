@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,17 +17,17 @@ public class ApiController {
 
     @GetMapping("holidayInfoAPI")
     public ResponseEntity holidayInfoAPI(
-            @PathParam("year") String year,
-            @PathParam("month") String month
+
+
     ) {
 
-        System.out.println("year = " + year);
-        System.out.println("month = " + month);
+//        System.out.println("year = " + year);
+        //System.out.println("month = " + month);
 
         ArrayList<HashMap> responseHolidayArr = new ArrayList<>();
 
         try {
-            Map<String, Object> holidayMap = RequestUtils.holidayInfoAPI(year, month);
+            Map<String, Object> holidayMap = RequestUtils.holidayInfoAPI();
             Map<String, Object> response = (Map<String, Object>) holidayMap.get("response");
             Map<String, Object> body = (Map<String, Object>) response.get("body");
             System.out.println("body = " + body);
@@ -47,6 +48,8 @@ public class ApiController {
                 for (HashMap<String, Object> itemMap : item) {
                     System.out.println("itemMap = " + itemMap);
                     responseHolidayArr.add(itemMap);
+
+                    System.out.println("totalCount = " + totalCount);
                 }
         }
         } catch (IOException e) {
@@ -55,5 +58,7 @@ public class ApiController {
         return ResponseEntity.ok().body(responseHolidayArr);
     }
 
-
+    /*
+     *
+     * */
 }
